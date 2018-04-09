@@ -1,16 +1,19 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import { fetchPosts } from '../actions/posts';
+import Home from './Home';
+import Results from './Results';
 
-class App extends Component {
-  componentWillMount() {
-    this.props.fetchPosts();
-  }
+const App = () => (
+  <MuiThemeProvider>
+    <Router>
+      <div>
+        <Route exact path="/" component={Home} />
+        <Route path="/results" component={Results} />
+      </div>
+    </Router>
+  </MuiThemeProvider>
+);
 
-  render() {
-    return <div>Test</div>;
-  }
-}
-
-export default connect(null, { fetchPosts })(App);
+export default App;
