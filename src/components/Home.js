@@ -15,9 +15,16 @@ import { TextField } from 'redux-form-material-ui';
 
 class Home extends Component {
   handleFormSubmit = async ({ search, place }) => {
-    const { fetchPlace, fetchPlaces } = this.props;
-    (await place) ? fetchPlace(search) : fetchPlaces(search);
-    // history.push('/results');
+    const { fetchPlace, fetchPlaces, results, history } = this.props;
+
+    if (place) {
+      await fetchPlace(search);
+      history.push('/results/place');
+      return;
+    }
+
+    await fetchPlaces(search);
+    history.push('/results/places');
   };
 
   render() {

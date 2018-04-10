@@ -8,7 +8,7 @@ export const fetchPlace = (search) => async (dispatch) => {
     }
   });
 
-  dispatch({ type: 'FETCH_PLACE', payload: res.data });
+  dispatch({ type: 'UPDATE_PLACE_DATA', payload: res.data });
 };
 
 export const fetchPlaces = (search) => async (dispatch) => {
@@ -23,9 +23,7 @@ export const fetchPlaces = (search) => async (dispatch) => {
       console.log(err);
     });
 
-  const dispatchObj = res
-    ? { type: 'FETCH_PLACES', payload: res.data }
-    : { type: 'FETCH_PLACE_ERROR', payload: 'Error' };
+  const payload = res ? res.data : 'Error';
 
-  dispatch(dispatchObj);
+  dispatch({ type: 'UPDATE_PLACE_DATA', payload });
 };

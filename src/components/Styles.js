@@ -39,3 +39,8 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
+export const PlaceCard = styled(Card)`
+  width: 500px;
+  margin: 5rem auto;
+`;

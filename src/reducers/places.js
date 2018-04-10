@@ -4,17 +4,8 @@ const initialState = {};
 
 export default handleActions(
   {
-    FETCH_PLACE: (state, action) => {
-      console.log(action.payload);
-      return state;
-    },
-    FETCH_PLACES: (state, action) => {
-      console.log(action.payload);
-      return state;
-    },
-    FETCH_PLACE_ERROR: (state, action) => {
-      console.log(action.payload);
-      return state;
+    UPDATE_PLACE_DATA: (state, action) => {
+      return action.payload;
     }
   },
   initialState
