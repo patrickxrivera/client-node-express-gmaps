@@ -13,11 +13,19 @@ export const fetchPlace = (search) => async (dispatch) => {
 
 export const fetchPlaces = (search) => async (dispatch) => {
   const endpoint = 'http://127.0.0.1:8080/api/places';
-  const res = await axios.get(endpoint, {
-    params: {
-      search
-    }
-  });
+  const res = await axios
+    .get(endpoint, {
+      params: {
+        search
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
-  dispatch({ type: 'FETCH_PLACES', payload: res.data });
+  const dispatchObj = res
+    ? { type: 'FETCH_PLACES', payload: res.data }
+    : { type: 'FETCH_PLACE_ERROR', payload: 'Error' };
+
+  dispatch(dispatchObj);
 };

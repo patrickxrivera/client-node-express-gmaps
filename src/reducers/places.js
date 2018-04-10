@@ -11,6 +11,10 @@ export default handleActions(
     FETCH_PLACES: (state, action) => {
       console.log(action.payload);
       return state;
+    },
+    FETCH_PLACE_ERROR: (state, action) => {
+      console.log(action.payload);
+      return state;
     }
   },
   initialState
