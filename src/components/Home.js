@@ -14,29 +14,47 @@ import { fetchPlace, fetchPlaces } from '../actions/places';
 import { TextField } from 'redux-form-material-ui';
 
 class Home extends Component {
-  componentDidMount() {
-    this.props.fetchPlace();
-    this.props.fetchPlaces();
-  }
+  handleFormSubmit = async ({ search, place }) => {
+    const { fetchPlace, fetchPlaces } = this.props;
+    (await place) ? fetchPlace(search) : fetchPlaces(search);
+    // history.push('/results');
+  };
 
   render() {
+    const { handleSubmit, fields: { search }, errorMsg } = this.props;
+
     return (
       <StyledCard>
         <Title>Places.io</Title>
-        <FieldWrapper>
-          <Field
-            autoFocus={true}
-            name="Search"
-            component={TextField}
-            fullWidth={true}
-            hintText="Search"
-            style={fieldStyle}
-          />
-        </FieldWrapper>
-        <ButtonWrapper>
-          <RaisedButton type="submit" primary={true} label="Search" />
-          <RaisedButton type="submit" label="I'm feeling lucky" />
-        </ButtonWrapper>
+        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+          <FieldWrapper>
+            <Field
+              autoFocus={true}
+              name="search"
+              component={TextField}
+              fullWidth={true}
+              hintText="Search"
+              style={fieldStyle}
+            />
+          </FieldWrapper>
+          <ButtonWrapper>
+            <RaisedButton
+              onClick={handleSubmit((values) =>
+                this.handleFormSubmit({ ...values, place: false })
+              )}
+              type="submit"
+              primary={true}
+              label="Search"
+            />
+            <RaisedButton
+              onClick={handleSubmit((values) =>
+                this.handleFormSubmit({ ...values, place: true })
+              )}
+              type="submit"
+              label="I'm feeling lucky"
+            />
+          </ButtonWrapper>
+        </form>
       </StyledCard>
     );
   }
